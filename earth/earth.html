@@ -7,8 +7,18 @@
 // INIT SCENE
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({antialias : true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// LIGHT 
+var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+scene.add(ambientLight);
+
+var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
 
 // CAMERA
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
@@ -18,7 +28,7 @@ camera.position.y = 0;
 
 // SPHERE - EARTH
 var earthGeometry = new THREE.SphereGeometry(100, 150, 150);
-var earthMaterial = new THREE.MeshBasicMaterial({color : 0x0000ff});
+var earthMaterial = new THREE.MeshPhongMaterial({color : 0x0000ff});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 
