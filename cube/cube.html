@@ -12,9 +12,9 @@ document.body.appendChild(renderer.domElement);
 // CAMERA
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
 scene.add(camera);
-camera.position.z = 200;
-camera.position.y = 30;
-camera.rotation.x = -10 * Math.PI / 180;
+camera.position.z = 350;
+camera.position.y = 200;
+camera.rotation.x = -30 * Math.PI / 180;
 
 // CUBE
 var cubeMaterial = new THREE.MeshBasicMaterial({color: 0xfff999, vertexColors: THREE.VertexColors});
@@ -27,7 +27,7 @@ cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cube.position.set(0, 0, 0);
 scene.add(cube);
 
-// COLOR
+// COLOR CUBE
 for (var i = 0; i < cubeGeometry.faces.length; i++)
 {
 	var face = cubeGeometry.faces[i];
@@ -42,6 +42,15 @@ for (var i = 0; i < cubeGeometry.faces.length; i++)
 		face.vertexColors[j] = color;
 	}
 }
+
+// FLOOR
+var floorMaterial = new THREE.MeshBasicMaterial({color : 0xd3d3d3});
+var floorMaterial = new THREE.MeshBasicMaterial({color : 0xd3d3d3, side : THREE.DoubleSide});
+var floorGeometry = new THREE.PlaneGeometry(600, 300, 1, 1);
+var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.position.y = -160 ;
+floor.rotation.x -= Math.PI / 2;
+scene.add(floor);
 
 // ANIMATION
 function animate() 
