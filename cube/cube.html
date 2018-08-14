@@ -15,9 +15,9 @@ document.body.appendChild(renderer.domElement);
 // CAMERA
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
 scene.add(camera);
-camera.position.z = 350;
+camera.position.z = 550;
 camera.position.y = 200;
-camera.rotation.x = -30 * Math.PI / 180;
+camera.rotation.x = -20 * Math.PI / 180;
 
 // LIGHT 
 var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
@@ -28,8 +28,15 @@ spotLight.position.set(250, 350, 50);
 spotLight.castShadow = true;
 scene.add(spotLight);
 
+var spotLight2 = new THREE.SpotLight(0xff9f39, 1.5, 5000, 25 * Math.PI / 180);
+spotLight2.position.set(-100, 250, 50);
+spotLight2.castShadow = true;
+scene.add(spotLight2);
+
 var spotLightHelper = new THREE.SpotLightHelper(spotLight);
+var spotLightHelper2 = new THREE.SpotLightHelper(spotLight2);
 scene.add(spotLightHelper);
+scene.add(spotLightHelper2);
 
 // CUBE
 var cubeMaterial = new THREE.MeshPhongMaterial({color: 0xfff999, vertexColors: THREE.VertexColors});
