@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<title>My first threejs cube</title>
+<script src = "http://mrdoob.github.com/three.js/build/three.min.js"></script>
+<body style = 'margin : 0; display : block;'><script>
+
+// INIT SCENE
+var scene = new THREE.Scene();
+var renderer = new THREE.WebGLRenderer({antialias : true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// CAMERA
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
+scene.add(camera);
+camera.position.z = 200;
+camera.position.y = 100;
+camera.rotation.x = -10 * Math.PI / 180;
+
+// CUBE
+var cubeMaterial = new THREE.MeshBasicMaterial({color: 0x0000ff});
+var size = 80;
+var point;
+var cubeGeometry = new THREE.CubeGeometry(size, size, size);
+cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cube.position.set(0, 0, 0);
+scene.add(cube);
+
+// ANIMATION
+function animate() 
+{
+	requestAnimationFrame(animate);
+	renderer.render(scene, camera);
+}
+
+animate(); 
+
+</script></body>
