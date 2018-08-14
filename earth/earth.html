@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<title>EARTH</title>
+<script src = "http://mrdoob.github.com/three.js/build/three.min.js"></script>
+<script src = '../src/OrbitControls.js'></script>
+<body style = 'margin : 0; display : block'><script>
+
+// INIT SCENE
+var scene = new THREE.Scene();
+var renderer = new THREE.WebGLRenderer({antialias : true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// CAMERA
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
+scene.add(camera);
+camera.position.z = 450;
+camera.position.y = 0;
+
+// SPHERE - EARTH
+var earthGeometry = new THREE.SphereGeometry(100, 150, 150);
+var earthMaterial = new THREE.MeshBasicMaterial({color : 0x0000ff});
+var earth = new THREE.Mesh(earthGeometry, earthMaterial);
+scene.add(earth);
+
+// ANIMATION
+function animate()
+{
+	requestAnimationFrame(animate);
+	renderer.render(scene, camera);
+}
+
+animate();
+
+</script></body>
