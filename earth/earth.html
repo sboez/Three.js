@@ -2,7 +2,7 @@
 <title>EARTH</title>
 <script src = "http://mrdoob.github.com/three.js/build/three.min.js"></script>
 <script src = '../src/OrbitControls.js'></script>
-<body style = 'margin : 0; display : block'><script>
+<body style = 'margin : 0; display : block;'><script>
 
 // INIT SCENE
 var scene = new THREE.Scene();
@@ -13,30 +13,43 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // LIGHT 
-var ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
 // CAMERA
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
 scene.add(camera);
-camera.position.z = 450;
+camera.position.z = 3;
 camera.position.y = 0;
 
+// TEXTURE
+var texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
+
 // SPHERE - EARTH
-var earthGeometry = new THREE.SphereGeometry(100, 150, 150);
-var earthMaterial = new THREE.MeshPhongMaterial({color : 0x0000ff});
+var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
+var earthMaterial = new THREE.MeshPhongMaterial({map : texture});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
+
+// CONTROLS
+/* Use mouse : 
+- right click to move camera
+- left click to turn aroud
+- scroll to zoom
+*/
+controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.update();
 
 // ANIMATION
 function animate()
 {
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
+	controls.update();
 }
 
 animate();
