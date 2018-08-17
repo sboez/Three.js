@@ -13,10 +13,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // LIGHT 
-var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+var ambientLight = new THREE.AmbientLight(0x222222);
 scene.add(ambientLight);
 
-var directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
@@ -31,13 +31,14 @@ var texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
 var bump = THREE.ImageUtils.loadTexture('../pics/earthbump1k.jpg');
 var specular = THREE.ImageUtils.loadTexture('../pics/earthspec1k.jpg');
 var cloudTexture = THREE.ImageUtils.loadTexture('../pics/mergecloud.jpg');
+var starfield = THREE.ImageUtils.loadTexture('../pics/galaxy_starfield.png')
 
 // SPHERE - EARTH
 var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
 var earthMaterial = new THREE.MeshPhongMaterial({
 	map : texture,
 	bumpMap : bump, 
-	bumpScale : 0.5, 
+	bumpScale : 0.3, 
 	specularMap : specular, 
 	specular : new THREE.Color('grey')});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
@@ -55,12 +56,15 @@ var cloudMaterial = new THREE.MeshPhongMaterial({
 var cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
 scene.add(cloud);
 
+// STARFIELD
+var geometry  = new THREE.SphereGeometry(10, 32, 32)
+var material  = new THREE.MeshPhongMaterial({
+	map : starfield,
+	side : THREE.DoubleSide});
+var mesh  = new THREE.Mesh(geometry, material)
+scene.add(mesh);
+
 // CONTROLS
-/* Use mouse : 
-- right click to move camera
-- left click to turn aroud
-- scroll to zoom
-*/
 controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.update();
 
@@ -69,6 +73,8 @@ function animate()
 {
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
+	earth.rotation.y += 0.0003;
+	cloud.rotation.y += 0.0006;
 	controls.update();
 }
 
