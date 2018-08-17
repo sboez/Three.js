@@ -30,6 +30,7 @@ camera.position.y = 0;
 var texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
 var bump = THREE.ImageUtils.loadTexture('../pics/earthbump1k.jpg');
 var specular = THREE.ImageUtils.loadTexture('../pics/earthspec1k.jpg');
+var cloudTexture = THREE.ImageUtils.loadTexture('../pics/mergecloud.jpg');
 
 // SPHERE - EARTH
 var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
@@ -41,6 +42,18 @@ var earthMaterial = new THREE.MeshPhongMaterial({
 	specular : new THREE.Color('grey')});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
+
+// CLOUD
+var cloudGeometry = new THREE.SphereGeometry(0.51, 20, 20);
+var cloudMaterial = new THREE.MeshPhongMaterial({
+	map : cloudTexture,
+	side : THREE.DoubleSide,
+	opacity : 0.29,
+	transparent : true,
+	depthWrite : false
+});
+var cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+scene.add(cloud);
 
 // CONTROLS
 /* Use mouse : 
