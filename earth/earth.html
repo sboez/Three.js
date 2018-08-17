@@ -38,7 +38,7 @@ var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
 var earthMaterial = new THREE.MeshPhongMaterial({
 	map : texture,
 	bumpMap : bump, 
-	bumpScale : 0.3, 
+	bumpScale : 0.2, 
 	specularMap : specular, 
 	specular : new THREE.Color('grey')});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
@@ -66,6 +66,8 @@ scene.add(mesh);
 
 // CONTROLS
 controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.minDistance = 2.5;
+controls.maxDistance = 10;
 controls.update();
 
 // ANIMATION
