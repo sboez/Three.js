@@ -28,10 +28,17 @@ camera.position.y = 0;
 
 // TEXTURE
 var texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
+var bump = THREE.ImageUtils.loadTexture('../pics/earthbump1k.jpg');
+var specular = THREE.ImageUtils.loadTexture('../pics/earthspec1k.jpg');
 
 // SPHERE - EARTH
 var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
-var earthMaterial = new THREE.MeshPhongMaterial({map : texture});
+var earthMaterial = new THREE.MeshPhongMaterial({
+	map : texture,
+	bumpMap : bump, 
+	bumpScale : 0.5, 
+	specularMap : specular, 
+	specular : new THREE.Color('grey')});
 var earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 
