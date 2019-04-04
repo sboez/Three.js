@@ -1,8 +1,5 @@
-### Initiation to Three.js
+### Initiation to [Three.js](https://threejs.org)
 
-```
-python -m SimpleHTTPServer
-```
 
 Use Firefox for better performance 
 
