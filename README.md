@@ -1,4 +1,4 @@
-##### Initiation to Three.js
+#### Initiation to Three.js
 
 ```
 python -m SimpleHTTPServer
