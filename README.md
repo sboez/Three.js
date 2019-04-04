@@ -1,7 +1,9 @@
 ### Initiation to [Three.js](https://threejs.org)
 
-
-Use Firefox for better performance 
+```
+python -m SimpleHTTPServer
+```
+Use Firefox browser for better performance 
 
 ##### cube
 <img width="334" alt="cube_threejs" src="https://user-images.githubusercontent.com/23494780/55540236-dcd37300-56c2-11e9-832b-f6d7fc8b5244.png">
