@@ -1,9 +1,11 @@
 ### Initiation to [Three.js](https://threejs.org)
 
+Three.js is a cross-browser JavaScript library used to create and display animated 3D computer graphics in a web browser. Three.js uses WebGL. [The source code is here](https://github.com/mrdoob/three.js/)
+
 ```
 python -m SimpleHTTPServer
 ```
-Use Firefox browser for better performance 
+###### Use Firefox browser for better performance 
 
 ##### cube
 <img width="434" alt="cube_threejs" src="https://user-images.githubusercontent.com/23494780/55540236-dcd37300-56c2-11e9-832b-f6d7fc8b5244.png">
