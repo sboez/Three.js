@@ -1,70 +1,99 @@
-// INIT SCENE
-var scene = new THREE.Scene();
-var renderer = new THREE.WebGLRenderer({antialias : true});
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+/* VARIABLES DECLARATION */
+let scene, camera, renderer;
 
-// LIGHT 
-var ambientLight = new THREE.AmbientLight(0x222222);
-scene.add(ambientLight);
+function start() {
+	init();
+	animate(); 
+}
 
-var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(5, 5, 5);
-scene.add(directionalLight);
+/* INIT SCENE */ 
+function init() {
+	scene = new THREE.Scene();
+	setCamera();
+	setRenderer();
+	setLight();
+	setObjects();
+	controls();
+	document.body.appendChild(renderer.domElement);
+	window.addEventListener('resize', windowResize, false);
+}
 
-// CAMERA
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
-scene.add(camera);
-camera.position.z = 3;
-camera.position.y = 0;
+function windowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
-// TEXTURE
-var texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
-var bump = THREE.ImageUtils.loadTexture('../pics/earthbump1k.jpg');
-var specular = THREE.ImageUtils.loadTexture('../pics/earthspec1k.jpg');
-var cloudTexture = THREE.ImageUtils.loadTexture('../pics/mergecloud.jpg');
-var starfield = THREE.ImageUtils.loadTexture('../pics/galaxy_starfield.png')
+function setRenderer() {
+	renderer = new THREE.WebGLRenderer({antialias : true});
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
-// SPHERE - EARTH
-var earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
-var earthMaterial = new THREE.MeshPhongMaterial({
-	map : texture,
-	bumpMap : bump, 
-	bumpScale : 0.2, 
-	specularMap : specular, 
-	specular : new THREE.Color('grey')});
-var earth = new THREE.Mesh(earthGeometry, earthMaterial);
-scene.add(earth);
+function setCamera() {
+	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
+	scene.add(camera);
+	camera.position.z = 3;
+	camera.position.y = 0;
+}
 
-// CLOUD
-var cloudGeometry = new THREE.SphereGeometry(0.51, 20, 20);
-var cloudMaterial = new THREE.MeshPhongMaterial({
-	map : cloudTexture,
-	side : THREE.DoubleSide,
-	opacity : 0.29,
-	transparent : true,
-	depthWrite : false
-});
-var cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
-scene.add(cloud);
+function setLight() {
+	let ambientLight = new THREE.AmbientLight(0x222222);
+	scene.add(ambientLight);
 
-// STARFIELD
-var geometry  = new THREE.SphereGeometry(10, 32, 32)
-var material  = new THREE.MeshPhongMaterial({
-	map : starfield,
-	side : THREE.DoubleSide});
-var mesh  = new THREE.Mesh(geometry, material)
-scene.add(mesh);
+	let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+	directionalLight.position.set(5, 5, 5);
+	scene.add(directionalLight);
+}
 
-// CONTROLS
-controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.minDistance = 2.5;
-controls.maxDistance = 10;
-controls.update();
+function setObjects() {
+	// TEXTURE
+	let texture = THREE.ImageUtils.loadTexture('../pics/earthmap1k.jpg');
+	let bump = THREE.ImageUtils.loadTexture('../pics/earthbump1k.jpg');
+	let specular = THREE.ImageUtils.loadTexture('../pics/earthspec1k.jpg');
+	let cloudTexture = THREE.ImageUtils.loadTexture('../pics/mergecloud.jpg');
+	let starfield = THREE.ImageUtils.loadTexture('../pics/galaxy_starfield.png')
 
-// ANIMATION
+	// SPHERE - EARTH
+	let earthGeometry = new THREE.SphereGeometry(0.5, 20, 20);
+	let earthMaterial = new THREE.MeshPhongMaterial({
+		map : texture,
+		bumpMap : bump, 
+		bumpScale : 0.2, 
+		specularMap : specular, 
+		specular : new THREE.Color('grey')});
+	let earth = new THREE.Mesh(earthGeometry, earthMaterial);
+	scene.add(earth);
+
+	// CLOUD
+	let cloudGeometry = new THREE.SphereGeometry(0.51, 20, 20);
+	let cloudMaterial = new THREE.MeshPhongMaterial({
+		map : cloudTexture,
+		side : THREE.DoubleSide,
+		opacity : 0.29,
+		transparent : true,
+		depthWrite : false
+	});
+	let cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+	scene.add(cloud);
+
+	// STARFIELD
+	let geometry  = new THREE.SphereGeometry(10, 32, 32)
+	let material  = new THREE.MeshPhongMaterial({
+		map : starfield,
+		side : THREE.DoubleSide});
+	let mesh  = new THREE.Mesh(geometry, material)
+	scene.add(mesh);
+}
+
+function controls() {
+	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls.minDistance = 2.5;
+	controls.maxDistance = 10;
+	controls.update();
+}
+
 function animate()
 {
 	requestAnimationFrame(animate);
@@ -74,4 +103,4 @@ function animate()
 	controls.update();
 }
 
-animate();
+start();
