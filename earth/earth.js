@@ -1,5 +1,5 @@
 /* VARIABLES DECLARATION */
-let scene, camera, renderer;
+let scene, camera, renderer, earth, cloud;
 
 function start() {
 	init();
@@ -63,7 +63,7 @@ function setObjects() {
 		bumpScale : 0.2, 
 		specularMap : specular, 
 		specular : new THREE.Color('grey')});
-	let earth = new THREE.Mesh(earthGeometry, earthMaterial);
+	earth = new THREE.Mesh(earthGeometry, earthMaterial);
 	scene.add(earth);
 
 	// CLOUD
@@ -75,7 +75,7 @@ function setObjects() {
 		transparent : true,
 		depthWrite : false
 	});
-	let cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+	cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
 	scene.add(cloud);
 
 	// STARFIELD
