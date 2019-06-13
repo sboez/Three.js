@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<title>EARTH</title>
-<script src = "../src/three.min.js"></script>
-<script src = '../src/OrbitControls.js'></script>
-<body style = 'margin : 0; display : block;'><script>
-
 // INIT SCENE
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({antialias : true});
@@ -81,5 +75,3 @@ function animate()
 }
 
 animate();
-
-</script></body>
